@@ -5,15 +5,21 @@
   
   $(document).ready(function() {
     
+    
+    window.PizzaView = Backbone.View.extend({
+      initialize: function() {
+        this.template = _.template($('#pizza-template').html());
+      },
+      
+      render: function() {
+        var renderedContent = this.template(this.model.toJSON());
+        $(this.el).html(renderedContent);
+        return this;
+      }
+      
+    });
+    
     window.IngredientView = Backbone.View.extend({
-      events: {
-        'click a': 'addIngredient'
-      },
-      
-      addIngredient: function() {
-        console.log('add');
-      },
-      
       initialize: function() {
         this.template = _.template($('#ingredient-template').html());
       },
