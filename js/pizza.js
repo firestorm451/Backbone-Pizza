@@ -1,10 +1,18 @@
 (function($) {
 
   window.Ingredient = Backbone.Model.extend({});
-
+  window.Pizza = Backbone.Model.extend({});
+  
   $(document).ready(function() {
     
     window.IngredientView = Backbone.View.extend({
+      events: {
+        'click a': 'addIngredient'
+      },
+      
+      addIngredient: function() {
+        console.log('add');
+      },
       
       initialize: function() {
         this.template = _.template($('#ingredient-template').html());
@@ -24,12 +32,13 @@
       },
       
       initialize: function() {
+        pizza             = new Pizza();
         peperoni          = new Ingredient({title: 'peperoni'});
         ingredientView    = new IngredientView({model: peperoni});
       },
       
       home: function() {
-        $("#container").append(ingredientView.render().el);
+        $("#ingredients").append(ingredientView.render().el);
       }
       
     });
