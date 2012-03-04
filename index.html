@@ -7,9 +7,16 @@
   <script src="js/vendor/jquery-1.7.1.min.js"></script>
   <script src="js/vendor/underscore-min.js"></script>
   <script src="js/vendor/backbone.js"></script>
-  <script src="js/rimian.js"></script>
+  <script src="js/pizza.js"></script>
+  
+  <script type="text/template" id="ingredient-template">
+    Ingredient 
+    <span class="ingredient-title"><%= title %></span>
+  </script>
+  
 </head>
-<body>
-  Hi
+<body>  
+  <h1>Pizza</h1>
+  <div id="container"></div>
 </body>
 </html>
