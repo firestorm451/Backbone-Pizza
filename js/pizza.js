@@ -18,6 +18,25 @@
       
     });
     
+    window.BackbonePizza = Backbone.Router.extend({
+      routes: {
+        ''      : 'home',
+      },
+      
+      initialize: function() {
+        peperoni          = new Ingredient({title: 'peperoni'});
+        ingredientView    = new IngredientView({model: peperoni});
+      },
+      
+      home: function() {
+        $("#container").append(ingredientView.render().el);
+      }
+      
+    });
+    
+    window.App = new BackbonePizza();
+    Backbone.history.start();
+    
   });
 
 
