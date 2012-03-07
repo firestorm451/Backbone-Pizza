@@ -2,12 +2,20 @@
 
   window.Ingredient = Backbone.Model.extend({});
   window.IngredientList = Backbone.Collection.extend({
-    model: Ingredient
+    model: Ingredient,
+    url: 'ingredients.json',
+    
+    initialize: function() {
+      console.log(this);
+    }
   });
 
 
+  model = new Ingredient();
+  model.set('title', 'peperoni');
+  
   console.log('Create a global list of ingredients');
-  window.Ingredients = new IngredientList;
+  window.Ingredients = new IngredientList([model]);
   
   $(document).ready(function() {
     
@@ -41,14 +49,12 @@
       el: $('#pizzaapp'),
       
       initialize: function() {
-        console.log('App View : function: initialize');
+        // console.log('App View : function: initialize');
 
-        Ingredients.bind('add',   this.addOne, this);
-        Ingredients.bind('reset', this.addAll, this);
-        Ingredients.bind('all',   this.render, this);
+        // Ingredients.bind('add',   this.addOne, this);
+        // Ingredients.bind('reset', this.addAll, this);
+        // Ingredients.bind('all',   this.render, this);
 
-        console.log('App View : Fetch the ingredients.');
-        // Ingredients.fetch();
       },
       
       addOne: function() {
