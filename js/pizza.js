@@ -3,7 +3,8 @@
   window.Ingredient = Backbone.Model.extend({});
   window.IngredientList = Backbone.Collection.extend({
     model: Ingredient,
-    url: 'ingredients.json',
+    
+    localStorage: new Store("ingredients"),
     
     initialize: function() {
       console.log(this);
