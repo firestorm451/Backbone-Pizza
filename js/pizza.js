@@ -1,15 +1,20 @@
 (function($) {
 
   window.Ingredient = Backbone.Model.extend({});
-  window.Pizza = Backbone.Model.extend({});
+  window.IngredientList = Backbone.Collection.extend({
+    model: Ingredient
+  });
+
+
+  console.log('Create a global list of ingredients');
+  window.Ingredients = new IngredientList;
   
   $(document).ready(function() {
     
     
     window.PizzaView = Backbone.View.extend({
-      initialize: function() {
-        this.template = _.template($('#pizza-template').html());
-      },
+      
+      template: _.template($('#pizza-template').html()),
       
       render: function() {
         var renderedContent = this.template(this.model.toJSON());
@@ -20,9 +25,8 @@
     });
     
     window.IngredientView = Backbone.View.extend({
-      initialize: function() {
-        this.template = _.template($('#ingredient-template').html());
-      },
+      
+      template: _.template($('#ingredient-template').html()),
       
       render: function() {
         var renderedContent = this.template(this.model.toJSON());
@@ -32,25 +36,33 @@
       
     });
     
-    window.BackbonePizza = Backbone.Router.extend({
-      routes: {
-        ''      : 'home',
-      },
+    window.AppView = Backbone.View.extend({
+      
+      el: $('#pizzaapp'),
       
       initialize: function() {
-        pizza             = new Pizza();
-        peperoni          = new Ingredient({title: 'peperoni'});
-        ingredientView    = new IngredientView({model: peperoni});
+        console.log('App View : function: initialize');
+
+        Ingredients.bind('add',   this.addOne, this);
+        Ingredients.bind('reset', this.addAll, this);
+        Ingredients.bind('all',   this.render, this);
+
+        console.log('App View : Fetch the ingredients.');
+        // Ingredients.fetch();
       },
       
-      home: function() {
-        $("#ingredients").append(ingredientView.render().el);
+      addOne: function() {
+        console.log('App View : function: addOne');
+      },
+
+      addAll: function() {
+        console.log('App View : function: addAll');
       }
+      
       
     });
     
-    window.App = new BackbonePizza();
-    Backbone.history.start();
+    window.App = new AppView();
     
   });
 
