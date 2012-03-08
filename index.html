@@ -11,13 +11,12 @@
   <script src="js/pizza.js"></script>
   
   <script type="text/template" id="ingredient-template">
-    <span class="title"><%= title %></span>
-    <a href="#">add to pizza</a>
+    <td class="title" style="width: 200px;"><%= title %></td>
+    <td><a href="#">add to pizza</a></td>
   </script>
 
   <script type="text/template" id="pizza-template">
     <span class="title"><%= title %></span>
-    <a href="#">add</a>
   </script>
   
 </head>
@@ -29,7 +28,7 @@
     </div>
     
     <div id="ingredients_pizza"></div>
-    <div id="ingredients_menu"></div>
+    <table id="ingredients_menu"></table>
   </div>
 
 

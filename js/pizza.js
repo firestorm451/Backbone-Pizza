@@ -37,6 +37,7 @@
     
     window.IngredientView = Backbone.View.extend({
       
+      tagName: 'tr',
       template: _.template($('#ingredient-template').html()),
       
       render: function() {
