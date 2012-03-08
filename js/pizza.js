@@ -1,25 +1,33 @@
 (function($) {
 
   window.Ingredient = Backbone.Model.extend({});
-  window.IngredientList = Backbone.Collection.extend({
+
+  // These are the available ingredients.
+  window.PizzaMenuCollection = Backbone.Collection.extend({
     model: Ingredient,
-    
-    localStorage: new Store("ingredients"),
-    
+    localStorage: new Store('pizza_menu'),
+  
     initialize: function() {
-      console.log(this);
+      console.log('Inititalize PizzaMenuCollection', this);
     }
+  
   });
 
+  // These are the selected ingredients.
+  window.SelectedIngredientsCollection = Backbone.Collection.extend({
+    model: Ingredient,
+    localStorage: new Store('pizza_selected_toppings')
+  });
 
-  model = new Ingredient();
-  model.set('title', 'peperoni');
-  
-  console.log('Create a global list of ingredients');
-  window.Ingredients = new IngredientList([model]);
+  window.pizzaMenu = new PizzaMenuCollection([
+    {title: 'Peperoni'},
+    {title: 'Anchovies'},
+    {title: 'Olives'},
+    {title: 'Capscicum'},
+    {title: 'Bocconcini'}
+  ]);
   
   $(document).ready(function() {
-    
     
     window.PizzaView = Backbone.View.extend({
       
@@ -50,26 +58,51 @@
       el: $('#pizzaapp'),
       
       initialize: function() {
-        // console.log('App View : function: initialize');
-
+        console.log('App View : function: initialize');
+        
+        
         // Ingredients.bind('add',   this.addOne, this);
         // Ingredients.bind('reset', this.addAll, this);
-        // Ingredients.bind('all',   this.render, this);
-
+        // pizzaMenu.bind('change', this.render);
+        
+        // console.log('App View : fetch pizza menu');
+        // pizzaMenu.fetch();
+        
+        // This should be bound to an event?
+        this.render();
       },
       
-      addOne: function() {
-        console.log('App View : function: addOne');
+      render: function() {
+        console.log('App View : render');
+        
+        // This isn't right... there should be some iterator thing.
+        for(var i = 0; i < pizzaMenu.models.length; i++) {
+          console.log('App View : render : pizza menu', pizzaMenu.models[i]);
+          model = pizzaMenu.models[i];
+          this.addOne(model);
+        }
+        
+        
+      
+        
+        // $("#pizza_menu").append('');
+      },
+      
+      addOne: function(ingredient) {
+        console.log('App View : function: addOne', ingredient);
+        var view = new IngredientView({model: ingredient});
+        $("#ingredients_pizza").append(view.render().el);
       },
 
       addAll: function() {
         console.log('App View : function: addAll');
+        
       }
       
       
     });
     
-    window.App = new AppView();
+    window.app = new AppView();
     
   });
 

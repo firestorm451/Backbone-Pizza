@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>My Backbone Sandbox</title>
+  <title>Backbone Pizza!</title>
   <script src="js/vendor/modernizr-2.5.3.js"></script>
   <script src="js/vendor/jquery-1.7.1.min.js"></script>
   <script src="js/vendor/underscore-min.js"></script>
@@ -12,7 +12,7 @@
   
   <script type="text/template" id="ingredient-template">
     <span class="title"><%= title %></span>
-    <a href="#">add</a>
+    <a href="#">add to pizza</a>
   </script>
 
   <script type="text/template" id="pizza-template">
@@ -24,7 +24,12 @@
 <body>  
 
   <div id="pizzaapp">
+    <div class="title">
+      <h1>Backbone Pizza!</h1>
+    </div>
     
+    <div id="ingredients_pizza"></div>
+    <div id="ingredients_menu"></div>
   </div>
 
 
