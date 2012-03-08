@@ -73,7 +73,7 @@
       addMenuIngredient: function(ingredient) {
         console.log('App View : render an ingredient view for pizza menu.', ingredient);
         var view = new IngredientView({model: ingredient});
-        $("#ingredients_pizza").append(view.render().el);
+        $("#ingredients_menu").append(view.render().el);
       },
 
     });
