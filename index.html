@@ -12,27 +12,20 @@
   
   <script type="text/template" id="ingredient-template">
     <td class="title" style="width: 200px;"><%= title %></td>
-    <td><a href="#">add to pizza</a></td>
+    <td class="add"><a href="#">add to pizza</a></td>
   </script>
 
   <script type="text/template" id="pizza-template">
-    <span class="title"><%= title %></span>
+    <td class="title"><%= title %></td>
   </script>
   
 </head>
-<body>  
-
+<body>
   <div id="pizzaapp">
-    <div class="title">
-      <h1>Backbone Pizza!</h1>
-    </div>
-    
-    <div id="ingredients_pizza"></div>
-    
+    <h1>Backbone Pizza!</h1>
+    <table id="ingredients_pizza"></table>
     <h3>Toppings menu</h3>
     <table id="ingredients_menu"></table>
   </div>
-
-
 </body>
 </html>

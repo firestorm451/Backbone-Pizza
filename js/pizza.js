@@ -6,20 +6,22 @@
   window.PizzaMenuCollection = Backbone.Collection.extend({
     model: Ingredient,
     localStorage: new Store('pizza_menu'),
-  
     initialize: function() {
       console.log('Inititalize PizzaMenuCollection', this);
     }
-  
   });
 
   // These are the selected ingredients.
   window.SelectedIngredientsCollection = Backbone.Collection.extend({
     model: Ingredient,
-    localStorage: new Store('pizza_selected_toppings')
+    localStorage: new Store('pizza_selected_toppings'),
+    initialize: function() {
+      console.log('Inititalize SelectedIngredientsCollection', this);
+    }
   });
 
   window.pizzaMenu = new PizzaMenuCollection();
+  window.pizzaToppings = new SelectedIngredientsCollection();
   
   $(document).ready(function() {
     
@@ -39,6 +41,15 @@
       
       tagName: 'tr',
       template: _.template($('#ingredient-template').html()),
+      
+      events: {
+        'click .add' : 'addToPizza'
+      },
+      
+      addToPizza: function() {
+        console.log(this.model);
+        pizzaToppings.trigger('add', this.model);
+      },
       
       render: function() {
         var renderedContent = this.template(this.model.toJSON());
@@ -60,14 +71,24 @@
         pizzaMenu.add([
           {title: 'Peperoni'},
           {title: 'Anchovies'},
-          {title: 'Olives'},
-          {title: 'Capscicum'},
+          {title: 'Kalamata Olives'},
+          {title: 'Prosciutto'},
           {title: 'Bocconcini'}
         ]);
+        
+        pizzaToppings.bind('add', this.addIngredientToPizza, this);
+        
+        pizzaToppings.add({title: 'Tomato Base'});
       },
       
       render: function() {
         console.log('App View : render');
+      },
+      
+      addIngredientToPizza: function(ingredient) {
+        console.log('App View : add ingredient to pizza');
+        var view = new IngredientView({model: ingredient});
+        $("#ingredients_pizza").append(view.render().el);
       },
       
       addMenuIngredient: function(ingredient) {
